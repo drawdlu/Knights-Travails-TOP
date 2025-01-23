@@ -3,8 +3,8 @@ require_relative 'lib/node'
 def knight_moves(vertex, goal, queue = [Node.new(vertex)])
   node = queue[0]
   moves = valid_moves(node)
-  goal_found = goal_found(moves, goal)
-  return goal_found unless goal_found.nil?
+  find_goal = find_goal(moves, goal)
+  return print_path(find_goal) unless find_goal.nil?
 
   record_moves(moves)
 
@@ -16,7 +16,7 @@ end
 
 def valid_moves(node)
   possible_moves = [[1, 2], [2, 1], [-1, -2], [-2, -1],
-                    [2, -1], [1, -2], [-2, 1], [-1, 2]]
+                    [2, -1], [1, -2], [-2, 1], [-1, 2]].freeze
   valid_arr = []
 
   possible_moves.each do |move|
@@ -40,7 +40,7 @@ def record_moves(moves)
   moves.each { |node| Node.recorded_vertex.push(node.vertex) }
 end
 
-def goal_found(moves, goal)
+def find_goal(moves, goal)
   moves.each do |node|
     return node if node.vertex == goal
   end
@@ -48,8 +48,33 @@ def goal_found(moves, goal)
   nil
 end
 
-# test = Node.new([3, 3])
-# valid_moves(test).each { |node| print "#{node.vertex} \n" }
+def get_path(node)
+  path = []
 
-print knight_moves([0, 0], [5, 6])
-# Node.recorded_vertex.each { |vertex| print "#{vertex} \n" }
+  until node.nil?
+    path.push(node.vertex)
+    node = node.parent_node
+  end
+
+  path.reverse
+end
+
+def print_path(node)
+  path = get_path(node)
+  num_moves = path.length - 1
+
+  puts "You made it in #{num_moves} moves! Here's your path:"
+
+  path.each { |vertex| print "#{vertex}\n" }
+end
+
+knight_moves([0, 0], [7, 7])
+
+# You made it in 6 moves! Here's your path:
+# [0, 0]
+# [1, 2]
+# [2, 4]
+# [3, 6]
+# [5, 7]
+# [6, 5]
+# [7, 7]
