@@ -2,6 +2,8 @@
 class Node
   @@recorded_vertex = []
 
+  attr_reader :vertex
+
   def initialize(vertex, parent_vertex = nil)
     @vertex = vertex
     @valid_moves = []
