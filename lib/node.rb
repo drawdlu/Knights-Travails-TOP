@@ -16,4 +16,8 @@ class Node
   def self.recorded_vertex=(vertices)
     @@recorded_vertex = vertices
   end
+
+  def to_s
+    @vertex
+  end
 end
