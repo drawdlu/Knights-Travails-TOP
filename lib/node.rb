@@ -1,12 +1,19 @@
 # A possible move for a knight from initial vertex
 class Node
-  @@recorded_vertex = []
-
   attr_reader :vertex
+
+  @@recorded_vertex = []
 
   def initialize(vertex, parent_vertex = nil)
     @vertex = vertex
-    @valid_moves = []
     @parent_vertex = parent_vertex
+  end
+
+  def self.recorded_vertex
+    @@recorded_vertex
+  end
+
+  def self.recorded_vertex=(vertices)
+    @@recorded_vertex = vertices
   end
 end
