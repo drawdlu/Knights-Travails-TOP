@@ -3,8 +3,8 @@ require_relative 'lib/node'
 def knight_moves(vertex, goal, queue = [Node.new(vertex)])
   node = queue[0]
   moves = valid_moves(node)
-  find_goal = find_goal(moves, goal)
-  return print_path(find_goal) unless find_goal.nil?
+  goal_node = find_goal(moves, goal)
+  return print_path(goal_node) unless goal_node.nil?
 
   record_moves(moves)
 
@@ -40,9 +40,9 @@ def record_moves(moves)
   moves.each { |node| Node.recorded_vertex.push(node.vertex) }
 end
 
-def find_goal(moves, goal)
-  moves.each do |node|
-    return node if node.vertex == goal
+def find_goal(moves_arr, goal_vertex)
+  moves_arr.each do |node|
+    return node if node.vertex == goal_vertex
   end
 
   nil
